@@ -1,5 +1,8 @@
 # PSCR-TME
 
+N° 21313000
+E-mail：weida.liu@etu.sorbonne-universite.fr
+
 Provided lab files for PSCR MU4IN400 course.
 
 Ce repo contient les fichiers utiles pour le cours MU4IN400 : Programmation Système Concurrente et Répartie
