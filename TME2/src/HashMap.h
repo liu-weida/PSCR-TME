@@ -21,7 +21,6 @@ public:
         size_t h = std::hash<K>()(key);
         size_t index = h % buckets.size();
 
-
         for (const Entry& entry : buckets[index]) {
             if (entry.key == key) {
                 return &entry.value;

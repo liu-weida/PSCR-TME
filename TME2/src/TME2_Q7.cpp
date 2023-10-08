@@ -2,9 +2,9 @@
 #include <fstream>
 #include <regex>
 #include <chrono>
-#include <unordered_map>
 #include <vector>
 #include <algorithm>
+#include "HashMap.h"  // Include your HashMap.h file
 
 int main() {
     using namespace std;
@@ -15,23 +15,36 @@ int main() {
     auto start = steady_clock::now();
     cout << "Parsing War and Peace" << endl;
 
-    unordered_map<string, int> wordCounts;
+    HashTable<string, int> wordCounts(10000);
 
-    // une regex qui reconnait les caractères anormaux (négation des lettres)
+    // A regex that identifies non-normal characters (i.e., non-letters)
     regex re(R"([^a-zA-Z])");
     string word;
+    vector<string> distinctWords;  // Store distinct words for later reconstruction
+
     while (input >> word) {
-        // élimine la ponctuation et les caractères spéciaux
+        // Remove punctuation and special characters
         word = regex_replace(word, re, "");
-        // passe en lowercase
+        // Convert to lowercase
         transform(word.begin(), word.end(), word.begin(), ::tolower);
 
-        wordCounts[word]++;  // Increment the word count
+        const int* count = wordCounts.get(word);
+        if (!count) {  // If word is not present in the hash table, add it to the distinctWords list
+            distinctWords.push_back(word);
+        }
+
+        wordCounts.put(word, count ? (*count + 1) : 1);
     }
     input.close();
 
-    // Initialize vector using unordered_map's entries
-    vector<pair<string, int>> vec(wordCounts.begin(), wordCounts.end());
+    // Initialize vector using the distinctWords list and the hash table
+    vector<pair<string, int>> vec;
+    for (const string& distinctWord : distinctWords) {
+        const int* count = wordCounts.get(distinctWord);
+        if (count) {
+            vec.push_back({distinctWord, *count});
+        }
+    }
 
     cout << "Finished Parsing War and Peace" << endl;
 
@@ -40,7 +53,7 @@ int main() {
          << duration_cast<milliseconds>(end - start).count()
          << "ms.\n";
 
-    // (Optional) Display some entries from the vector
+    // Display some entries from the vector
     for (const auto& searchWord : {"war", "peace", "toto"}) {
         auto it = find_if(vec.begin(), vec.end(),
                           [&searchWord](const pair<string, int>& element) { return element.first == searchWord; });

@@ -2,8 +2,8 @@
 #include <fstream>
 #include <regex>
 #include <chrono>
-#include <unordered_map>
 #include <algorithm>
+#include "HashMap.h"  // Include your HashMap.h file
 
 int main() {
     using namespace std;
@@ -14,18 +14,23 @@ int main() {
     auto start = steady_clock::now();
     cout << "Parsing War and Peace" << endl;
 
-    unordered_map<string, int> wordCounts;
+    HashTable<string, int> wordCounts(10000);  // Assuming the initial size for your HashTable is 10000
 
-    // une regex qui reconnait les caractères anormaux (négation des lettres)
+    // A regex that identifies non-normal characters (i.e., non-letters)
     regex re(R"([^a-zA-Z])");
     string word;
     while (input >> word) {
-        // élimine la ponctuation et les caractères spéciaux
+        // Remove punctuation and special characters
         word = regex_replace(word, re, "");
-        // passe en lowercase
+        // Convert to lowercase
         transform(word.begin(), word.end(), word.begin(), ::tolower);
 
-        wordCounts[word]++;  // Increment the word count
+        const int* count = wordCounts.get(word);
+        if (count) {
+            wordCounts.put(word, *count + 1);
+        } else {
+            wordCounts.put(word, 1);
+        }
     }
     input.close();
 
@@ -36,10 +41,11 @@ int main() {
          << duration_cast<milliseconds>(end - start).count()
          << "ms.\n";
 
-    // Afficher le nombre d'occurrences pour "war", "peace" et "toto"
+    // Display the occurrences for "war", "peace", and "toto"
     for (const auto& searchWord : {"war", "peace", "toto"}) {
-        if (wordCounts.find(searchWord) != wordCounts.end()) {
-            cout << "The word \"" << searchWord << "\" appeared " << wordCounts[searchWord] << " times." << endl;
+        const int* count = wordCounts.get(searchWord);
+        if (count) {
+            cout << "The word \"" << searchWord << "\" appeared " << *count << " times." << endl;
         } else {
             cout << "The word \"" << searchWord << "\" did not appear in the text." << endl;
         }
@@ -47,4 +53,3 @@ int main() {
 
     return 0;
 }
-

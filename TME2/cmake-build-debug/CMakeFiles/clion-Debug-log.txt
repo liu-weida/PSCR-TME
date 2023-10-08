@@ -1,4 +1,13 @@
 /home/weida/Desktop/clion-2023.2.2/bin/cmake/linux/x64/bin/cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=/home/weida/Desktop/clion-2023.2.2/bin/ninja/linux/x64/ninja -G Ninja -S /home/weida/eclipse-workspace/TME2 -B /home/weida/eclipse-workspace/TME2/cmake-build-debug
 -- Configuring done (0.0s)
--- Generating done (0.0s)
--- Build files have been written to: /home/weida/eclipse-workspace/TME2/cmake-build-debug
+CMake Error at CMakeLists.txt:16 (add_executable):
+  Cannot find source file:
+
+    src/TME3_Q123.cpp
+
+
+CMake Error at CMakeLists.txt:16 (add_executable):
+  No SOURCES given to target: TME3_Q123
+
+
+CMake Generate step failed.  Build files cannot be regenerated correctly.
