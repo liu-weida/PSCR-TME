@@ -1,6 +1,8 @@
 #include <vector>
 #include <forward_list>
 #include <cstddef>
+#include <utility>
+#include <iterator>
 
 template <typename K, typename V>
 class HashTable {
@@ -45,7 +47,6 @@ public:
         return false;
     }
 
-
     size_t size() const {
         size_t count = 0;
         for (const auto& bucket : buckets) {
@@ -55,6 +56,52 @@ public:
         }
         return count;
     }
+
+    class iterator {
+    public:
+        using value_type = std::pair<const K, V>;
+        using difference_type = std::ptrdiff_t;
+        using pointer = value_type*;
+        using reference = value_type&;
+        using iterator_category = std::forward_iterator_tag;
+
+    private:
+        typedef typename std::vector<std::forward_list<Entry>>::iterator bucket_iterator;
+        typedef typename std::forward_list<Entry>::iterator entry_iterator;
+
+        bucket_iterator vit;
+        entry_iterator lit;
+        bucket_iterator vend;
+
+    public:
+        iterator(bucket_iterator vit, bucket_iterator vend)
+                : vit(vit), vend(vend), lit(vit->begin()) {
+            while (vit != vend && lit == vit->end()) {
+                ++vit;
+                if (vit != vend) {
+                    lit = vit->begin();
+                }
+            }
+        }
+
+        iterator& operator++() {
+            ++lit;
+            while (vit != vend && lit == vit->end()) {
+                ++vit;
+                if (vit != vend) {
+                    lit = vit->begin();
+                }
+            }
+            return *this;
+        }
+
+        value_type operator*() { return std::make_pair(lit->key, lit->value); }
+
+        bool operator!=(const iterator& other) const {
+            return vit != other.vit || (vit != vend && lit != other.lit);
+        }
+    };
+
+    iterator begin() { return iterator(buckets.begin(), buckets.end()); }
+    iterator end() { return iterator(buckets.end(), buckets.end()); }
 };
-
-
