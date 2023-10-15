@@ -14,15 +14,15 @@ int main() {
     auto start = steady_clock::now();
     cout << "Parsing War and Peace" << endl;
 
-    HashTable<string, int> wordCounts(10000);  // Assuming the initial size for your HashTable is 10000
+    HashTable<string, int> wordCounts(10000);  
 
-    // A regex that identifies non-normal characters (i.e., non-letters)
+
     regex re(R"([^a-zA-Z])");
     string word;
     while (input >> word) {
-        // Remove punctuation and special characters
+
         word = regex_replace(word, re, "");
-        // Convert to lowercase
+
         transform(word.begin(), word.end(), word.begin(), ::tolower);
 
         const int* count = wordCounts.get(word);
