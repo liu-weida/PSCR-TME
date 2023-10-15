@@ -4,7 +4,7 @@
 #include <chrono>
 #include <vector>
 #include <algorithm>
-#include "HashMap.h"  
+#include "HashMap.h"
 
 int main() {
     using namespace std;
@@ -38,16 +38,11 @@ int main() {
     input.close();
 
     // Initialize vector using the distinctWords list and the hash table
-    vector<pair<string, int>> vec;
-    for (const string& distinctWord : distinctWords) {
-        const int* count = wordCounts.get(distinctWord);
-        if (count) {
-            vec.push_back({distinctWord, *count});
-        }
-    }
+
+    std::vector<std::pair<std::string, int>> newWordCounts (wordCounts.begin(), wordCounts.end());
 
     // Sort the vector by word count in descending order
-    sort(vec.begin(), vec.end(), [](const pair<string, int>& a, const pair<string, int>& b) {
+    sort(newWordCounts.begin(), newWordCounts.end(), [](const pair<string, int>& a, const pair<string, int>& b) {
         return a.second > b.second;
     });
 
@@ -60,8 +55,8 @@ int main() {
 
     // Display the top 10 most frequent words
     cout << "Top 10 most frequent words:\n";
-    for (int i = 0; i < 10 && i < vec.size(); i++) {
-        cout << vec[i].first << ": " << vec[i].second << " times\n";
+    for (int i = 0; i < 10 && i < newWordCounts.size(); i++) {
+        cout << newWordCounts[i].first << ": " << newWordCounts[i].second << " times\n";
     }
 
     return 0;
