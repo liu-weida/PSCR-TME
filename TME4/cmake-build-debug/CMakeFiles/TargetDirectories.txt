@@ -1,0 +1,3 @@
+/home/weida/CLionProjects/TME4/cmake-build-debug/CMakeFiles/TME4.dir
+/home/weida/CLionProjects/TME4/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/weida/CLionProjects/TME4/cmake-build-debug/CMakeFiles/rebuild_cache.dir
