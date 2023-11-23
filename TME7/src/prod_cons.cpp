@@ -28,7 +28,7 @@ void consommateur(Stack<char>* stack, bool active) {
     close(STDIN_FILENO);
     if (!interrupted && active) {
         char c = stack->pop();
-        cout << "Consommateur popp: " << c << endl;
+        cout << "Consommateur pop: " << c << endl;
     }
     while (!interrupted && !active) {
         sleep(1);
@@ -44,11 +44,15 @@ int main() {
     cout << "nb d'entrer: ";
     cin >> x;
 
-    vector<char> toPush(min(n, x), '\0');
-    cout << "enter " << min(n, x) << " characters: ";
-    for (int i = 0; i < min(n, x); ++i) {
+    vector<char> toPush(x, '\0');
+    cout << "enter " << x << " characters: ";
+    for (int i = 0; i < x; ++i) {
         cin >> toPush[i];
     }
+
+
+    n = max(n, x);
+    m = max(m, n);
 
     int fd;
     Stack<char>* sp;
@@ -70,20 +74,7 @@ int main() {
 
     Stack<char>* s = new (sp) Stack<char>();
 
-//    pid_t pp = fork();
-//    if (pp == 0) {
-//        producteur(s);
-//        exit(0);
-//    }
-//
-//    pid_t pc = fork();
-//    if (pc == 0) {
-//        consommateur(s);
-//        exit(0);
-//    }
-
-
-    signal(SIGINT, signalHandler);  // Ctrl-C
+    signal(SIGINT, signalHandler); // Ctrl-C
 
     vector<pid_t> children;
 
@@ -92,7 +83,7 @@ int main() {
         pid_t pid = fork();
         if (pid == 0) {
             sleep(i);
-            producteur(sp, toPush[i]);
+            producteur(sp, i < x ? toPush[i] : '\0'); 
             exit(0);
         }
         children.push_back(pid);
@@ -103,28 +94,25 @@ int main() {
         pid_t pid = fork();
         if (pid == 0) {
             sleep(i);
-            consommateur(sp, i < min(n, m));
+            consommateur(sp, i < n);
             exit(0);
         }
         children.push_back(pid);
     }
-
 
     while (!interrupted) {
         sleep(1); //1s
     }
 
     for (pid_t pid : children) {
-        kill(pid, SIGINT);     //envoyer ctrl+c a tous les fils
+        kill(pid, SIGINT);
     }
-
 
     for (pid_t pid : children) {
-        wait(0);
+        wait(0); 
     }
 
-
-    std::cout <<  std::endl;
+    std::cout << std::endl;
     std::cout << "~~~~~fini~~~~~" << std::endl;
     sp->~Stack<char>();
     munmap(sp, sizeof(Stack<char>));
