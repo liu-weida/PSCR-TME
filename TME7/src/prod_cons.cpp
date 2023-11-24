@@ -83,7 +83,7 @@ int main() {
         pid_t pid = fork();
         if (pid == 0) {
             sleep(i);
-            producteur(sp, i < x ? toPush[i] : '\0'); 
+            producteur(sp, i < x ? toPush[i] : '\0');
             exit(0);
         }
         children.push_back(pid);
@@ -109,7 +109,7 @@ int main() {
     }
 
     for (pid_t pid : children) {
-        wait(0); 
+        wait(0);
     }
 
     std::cout << std::endl;

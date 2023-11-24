@@ -10,6 +10,8 @@ add_executable(TME7
         src/prod_cons.cpp
         src/Stack.h
         src/pipe.cpp
+        src/chat_server.cpp
+        src/chat_client.cpp
 )
 
 # Link rt and pthread libraries

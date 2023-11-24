@@ -63,6 +63,20 @@ build CMakeFiles/TME7.dir/src/pipe.cpp.o: CXX_COMPILER__TME7_unscanned_Debug /ho
   OBJECT_DIR = CMakeFiles/TME7.dir
   OBJECT_FILE_DIR = CMakeFiles/TME7.dir/src
 
+build CMakeFiles/TME7.dir/src/chat_server.cpp.o: CXX_COMPILER__TME7_unscanned_Debug /home/weida/CLionProjects/TME7/src/chat_server.cpp || cmake_object_order_depends_target_TME7
+  DEP_FILE = CMakeFiles/TME7.dir/src/chat_server.cpp.o.d
+  FLAGS = -g -fdiagnostics-color=always
+  INCLUDES = -I/home/weida/CLionProjects/TME7/src
+  OBJECT_DIR = CMakeFiles/TME7.dir
+  OBJECT_FILE_DIR = CMakeFiles/TME7.dir/src
+
+build CMakeFiles/TME7.dir/src/chat_client.cpp.o: CXX_COMPILER__TME7_unscanned_Debug /home/weida/CLionProjects/TME7/src/chat_client.cpp || cmake_object_order_depends_target_TME7
+  DEP_FILE = CMakeFiles/TME7.dir/src/chat_client.cpp.o.d
+  FLAGS = -g -fdiagnostics-color=always
+  INCLUDES = -I/home/weida/CLionProjects/TME7/src
+  OBJECT_DIR = CMakeFiles/TME7.dir
+  OBJECT_FILE_DIR = CMakeFiles/TME7.dir/src
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target TME7
@@ -71,7 +85,7 @@ build CMakeFiles/TME7.dir/src/pipe.cpp.o: CXX_COMPILER__TME7_unscanned_Debug /ho
 #############################################
 # Link the executable TME7
 
-build TME7: CXX_EXECUTABLE_LINKER__TME7_Debug CMakeFiles/TME7.dir/src/prod_cons.cpp.o CMakeFiles/TME7.dir/src/pipe.cpp.o
+build TME7: CXX_EXECUTABLE_LINKER__TME7_Debug CMakeFiles/TME7.dir/src/prod_cons.cpp.o CMakeFiles/TME7.dir/src/pipe.cpp.o CMakeFiles/TME7.dir/src/chat_server.cpp.o CMakeFiles/TME7.dir/src/chat_client.cpp.o
   FLAGS = -g
   LINK_LIBRARIES = -lrt  -lpthread
   OBJECT_DIR = CMakeFiles/TME7.dir
