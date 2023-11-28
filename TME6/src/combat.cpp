@@ -53,8 +53,6 @@ void defense() {
     if (sigismember(&set, SIGINT)) {
         std::cout << "fils coup paré" << std::endl;
     }
-
-    sigprocmask(SIG_UNBLOCK, &set, NULL);
     } else{
 
         if (sigismember(&set, SIGINT)) {
