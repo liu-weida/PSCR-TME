@@ -40,7 +40,7 @@ void attaque(pid_t ennemis) {
 }
 
 void defense() {
-    if (isfils){
+
     sigset_t set;
     sigemptyset(&set);
     sigaddset(&set, SIGINT);
@@ -48,6 +48,7 @@ void defense() {
 
     randsleep();
 
+    if (isfils){
     sigpending(&set);
     if (sigismember(&set, SIGINT)) {
         std::cout << "fils coup paré" << std::endl;
@@ -55,20 +56,13 @@ void defense() {
 
     sigprocmask(SIG_UNBLOCK, &set, NULL);
     } else{
-        sigset_t set;
-        sigemptyset(&set);
-        sigaddset(&set, SIGINT);
-        sigprocmask(SIG_BLOCK, &set, NULL);
 
-        randsleep();
-
-        sigpending(&set);
         if (sigismember(&set, SIGINT)) {
             std::cout << "parent coup paré" << std::endl;
         }
-
-        sigprocmask(SIG_UNBLOCK, &set, NULL);
+        
     }
+    sigprocmask(SIG_UNBLOCK, &set, NULL);
 }
 
 void combat(pid_t ennemis) {
