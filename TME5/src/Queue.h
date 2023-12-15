@@ -17,7 +17,6 @@ namespace pr {
         std::condition_variable cond_vide;
         std::condition_variable cond_plein;
         bool isBlocking;
-
         bool empty() const {
             return sz == 0;
         }
@@ -44,6 +43,7 @@ namespace pr {
             while (isBlocking && empty()) {
                 cond_vide.wait(lg);
             }
+            
             if (empty()) {
                 return nullptr;
             }
@@ -79,6 +79,7 @@ namespace pr {
         }
 
         ~Queue() {
+            setBlocking(false);
             for (size_t i = 0; i < sz; i++) {
                 auto ind = (begin + i) % allocsize;
                 delete tab[ind];

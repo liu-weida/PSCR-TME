@@ -2,10 +2,13 @@
 #include <iostream>
 #include <thread>
 #include <chrono>
-
+#include "Color.h"
+#include "Sphere.h"
+#include "Rayon.h"
+#include "Scene.h"
+#include "Barrier.h"
 
 using namespace std::chrono_literals;
-
 
 namespace pr {
 
@@ -72,10 +75,11 @@ namespace pr {
         Color* rowPixels;
         Scene* scene;
         std::vector<Vec3D>* lights;
+        pr::Barrier& barrier;
 
     public:
-        RowJob(int y, Color* rowPixels, Scene* scene, std::vector<Vec3D>* lights)
-                : y(y), rowPixels(rowPixels), scene(scene), lights(lights) {}
+        RowJob(int y, Color* rowPixels, Scene* scene, std::vector<Vec3D>* lights, pr::Barrier& barrier)
+                : y(y), rowPixels(rowPixels), scene(scene), lights(lights), barrier(barrier) {}
 
         void run() override {
             for (int x = 0; x < scene->getWidth(); x++) {
@@ -89,9 +93,7 @@ namespace pr {
                     *pixel = computeColor(obj, ray, scene->getCameraPos(), *lights);
                 }
             }
+            barrier.done();
         }
     };
     }
-
-
-

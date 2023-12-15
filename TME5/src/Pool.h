@@ -13,6 +13,7 @@ namespace pr {
         Queue<Job> queue;
         std::vector<std::thread> threads;
 
+
         static void poolWorker(Queue<Job>& queue) {
             while (true) {
                 Job* j = queue.pop();
@@ -40,7 +41,7 @@ namespace pr {
         }
 
         void stop() {
-            for (int i = 0; i < threads.size(); ++i) {
+            for (size_t i = 0; i < threads.size(); ++i) {
                 queue.push(nullptr);
             }
             for (auto& th : threads) {
@@ -55,4 +56,4 @@ namespace pr {
         }
     };
 
-} // namespace pr
+}

@@ -11,12 +11,11 @@
 #include "Queue.h"
 #include "Job.h"
 #include "Pool.h"
-#include " Barrier.h"
+#include "Barrier.h"
 
 
 using namespace std;
 using namespace pr;
-
 
 void fillScene(Scene & scene, default_random_engine & re) {
 	// Nombre de spheres (rend le probleme plus dur)
@@ -32,8 +31,8 @@ void fillScene(Scene & scene, default_random_engine & re) {
 		scene.add(Sphere({50+distribd(re),50 + distribd(re),120 + distribd(re) }, double(distrib(re)%30) + 3.0, Color::random()));
 	}
 	// quelques spheres de plus pour ajouter du gout a la scene
-	scene.add(Sphere({50,50,40},15.0,Color::red));
-	scene.add(Sphere({100,20,50},55.0,Color::blue));
+	scene.add(Sphere({50,150,40},15.0,Color::red));
+	scene.add(Sphere({10,20,50},55.0,Color::blue));
 
 }
 
@@ -57,7 +56,7 @@ int pr::findClosestInter(const Scene & scene, const Rayon & ray) {
 }
 
 // Calcule l'angle d'incidence du rayon à la sphere, cumule l'éclairage des lumières
-// En déduit la couleur d'un pixel de l'écran.
+// En déduit la couleur d'un pixel de l'écran.。
 Color pr::computeColor(const Sphere & obj, const Rayon & ray, const Vec3D & camera, std::vector<Vec3D> & lights) {
 	Color finalcolor = obj.getColor();
 
@@ -116,7 +115,7 @@ int main() {
 
     vector<Vec3D> lights;
     lights.reserve(3);
-    lights.emplace_back(Vec3D(50, 50, -50));
+    lights.emplace_back(Vec3D(150, 150, -50));
     lights.emplace_back(Vec3D(50, 50, 120));
     lights.emplace_back(Vec3D(200, 0, 120));
 
@@ -153,6 +152,7 @@ int main() {
     pr::Pool pool(100);
     pool.start(20);
 
+    pr::Barrier barrier(scene.getHeight());
 
 //    Ex9
 //    for (int x = 0; x < scene.getWidth(); x++) {
@@ -167,10 +167,11 @@ int main() {
 //      Ex10
     for (int y = 0; y < scene.getHeight(); y++) {
         Color* rowPixels = &pixels[y * scene.getWidth()];
-        pr::RowJob* job = new pr::RowJob(y, rowPixels, &scene, &lights);
+        pr::RowJob* job = new pr::RowJob(y, rowPixels, &scene, &lights,barrier);
         pool.submit(job);
     }
 
+    barrier.waitFor();
 
     std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
     std::cout << "Total time "

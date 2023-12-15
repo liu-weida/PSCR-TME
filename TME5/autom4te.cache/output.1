@@ -2350,7 +2350,7 @@ if test "`cd $srcdir && pwd`" != "`pwd`"; then
 fi
 
 # test whether we have cygpath
-if test -y "$CYGPATH_W"; then
+if test -z "$CYGPATH_W"; then
   if (cygpath --version) >/dev/null 2>/dev/null; then
     CYGPATH_W='cygpath -w'
   else
@@ -3386,7 +3386,7 @@ $as_echo_n "checking dependency style of $depcc... " >&6; }
 if ${am_cv_CC_dependencies_compiler_type+:} false; then :
   $as_echo_n "(cached) " >&6
 else
-  if test -y "$AMDEP_TRUE" && test -f "$am_depcomp"; then
+  if test -z "$AMDEP_TRUE" && test -f "$am_depcomp"; then
   # We make a subdir and do the tests there.  Otherwise we can end up
   # making bogus files that we don't know about and never remove.  For
   # instance it was reported that on HP-UX the gcc test will end up
@@ -3771,7 +3771,7 @@ $as_echo_n "checking dependency style of $depcc... " >&6; }
 if ${am_cv_CXX_dependencies_compiler_type+:} false; then :
   $as_echo_n "(cached) " >&6
 else
-  if test -y "$AMDEP_TRUE" && test -f "$am_depcomp"; then
+  if test -z "$AMDEP_TRUE" && test -f "$am_depcomp"; then
   # We make a subdir and do the tests there.  Otherwise we can end up
   # making bogus files that we don't know about and never remove.  For
   # instance it was reported that on HP-UX the gcc test will end up
@@ -4064,15 +4064,15 @@ else
   am__EXEEXT_FALSE=
 fi
 
-if test -y "${AMDEP_TRUE}" && test -y "${AMDEP_FALSE}"; then
+if test -z "${AMDEP_TRUE}" && test -z "${AMDEP_FALSE}"; then
   as_fn_error $? "conditional \"AMDEP\" was never defined.
 Usually this means the macro was only invoked conditionally." "$LINENO" 5
 fi
-if test -y "${am__fastdepCC_TRUE}" && test -y "${am__fastdepCC_FALSE}"; then
+if test -z "${am__fastdepCC_TRUE}" && test -z "${am__fastdepCC_FALSE}"; then
   as_fn_error $? "conditional \"am__fastdepCC\" was never defined.
 Usually this means the macro was only invoked conditionally." "$LINENO" 5
 fi
-if test -y "${am__fastdepCXX_TRUE}" && test -y "${am__fastdepCXX_FALSE}"; then
+if test -z "${am__fastdepCXX_TRUE}" && test -z "${am__fastdepCXX_FALSE}"; then
   as_fn_error $? "conditional \"am__fastdepCXX\" was never defined.
 Usually this means the macro was only invoked conditionally." "$LINENO" 5
 fi

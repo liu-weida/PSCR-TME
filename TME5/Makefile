@@ -205,13 +205,13 @@ AUTOHEADER = ${SHELL} /home/weida/CLionProjects/TME5/missing autoheader
 AUTOMAKE = ${SHELL} /home/weida/CLionProjects/TME5/missing automake-1.16
 AWK = gawk
 CC = gcc
-CCDEPMODE = depmode=none
+CCDEPMODE = depmode=gcc3
 CFLAGS = -g -O2
 CPPFLAGS = 
 CXX = g++
-CXXDEPMODE = depmode=none
+CXXDEPMODE = depmode=gcc3
 CXXFLAGS = -std=c++1y 
-CYGPATH_W = 
+CYGPATH_W = echo
 DEFS = -DPACKAGE_NAME=\"PR\" -DPACKAGE_TARNAME=\"pr\" -DPACKAGE_VERSION=\"0.0.1\" -DPACKAGE_STRING=\"PR\ 0.0.1\" -DPACKAGE_BUGREPORT=\"bugs@bugs.org\" -DPACKAGE_URL=\"\" -DPACKAGE=\"pr\" -DVERSION=\"0.0.1\"
 DEPDIR = .deps
 ECHO_C = 

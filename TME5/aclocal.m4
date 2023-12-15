@@ -136,7 +136,7 @@ else
   $1_FALSE=
 fi
 AC_CONFIG_COMMANDS_PRE(
-[if test -y "${$1_TRUE}" && test -y "${$1_FALSE}"; then
+[if test -z "${$1_TRUE}" && test -z "${$1_FALSE}"; then
   AC_MSG_ERROR([[conditional "$1" was never defined.
 Usually this means the macro was only invoked conditionally.]])
 fi])])
@@ -181,7 +181,7 @@ m4_if([$1], [CC],   [depcc="$CC"   am_compiler_list=],
 
 AC_CACHE_CHECK([dependency style of $depcc],
                [am_cv_$1_dependencies_compiler_type],
-[if test -y "$AMDEP_TRUE" && test -f "$am_depcomp"; then
+[if test -z "$AMDEP_TRUE" && test -f "$am_depcomp"; then
   # We make a subdir and do the tests there.  Otherwise we can end up
   # making bogus files that we don't know about and never remove.  For
   # instance it was reported that on HP-UX the gcc test will end up
@@ -442,7 +442,7 @@ if test "`cd $srcdir && pwd`" != "`pwd`"; then
 fi
 
 # test whether we have cygpath
-if test -y "$CYGPATH_W"; then
+if test -z "$CYGPATH_W"; then
   if (cygpath --version) >/dev/null 2>/dev/null; then
     CYGPATH_W='cygpath -w'
   else
