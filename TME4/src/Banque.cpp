@@ -33,9 +33,6 @@ namespace pr {
     }
 
 
-
-
-
     size_t Banque::size() const {
         return comptes.size();
     }
@@ -61,7 +58,7 @@ namespace pr {
     }
 
     void Banque::effectuerBilan() {
-        std::lock_guard<std::mutex> verrou(verifieMutex);
+        std::unique_lock<std::mutex> verrou(verifieMutex);
         for (auto &compte: comptes) {
             comptesVerifies.insert(&compte);
         }

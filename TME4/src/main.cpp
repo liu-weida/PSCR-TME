@@ -8,9 +8,9 @@ using namespace std;
 
 
 
-void transaction(pr::Banque& banque, int id)
+void transaction(pr::Banque& banque)
 {
-    srand((unsigned)time(NULL));
+    srand((unsigned)time(NULL));  //seed
 
     for (int i = 0; i < 1000; ++i)
     {
@@ -45,7 +45,7 @@ int main () {
 
     for (int i = 0; i < NB_THREAD; ++i)
     {
-        threads.emplace_back(transaction, std::ref(banque), i);
+        threads.emplace_back(transaction, std::ref(banque));
     }
 
     banque.effectuerBilan();
