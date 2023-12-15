@@ -18,7 +18,6 @@ void alarm0(int signo) {
 }
 
 int wait_till_pid(pid_t pid) {
-    pid_t fini_pid;
     int status;
     while ((fini_pid = wait(&status)) != -1) {  //=-1 -> pas de fils a attendre
         if (fini_pid == pid) {
@@ -67,7 +66,7 @@ int main() {
 
         if (wait_till_pid(pid,4) == pid) {
 
-            std::cout << "Le fils processus est terminé."<<std::endl;
+            std::cout << "tous sont terminé."<<std::endl;
         }
     }
 

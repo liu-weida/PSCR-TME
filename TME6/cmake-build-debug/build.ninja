@@ -63,13 +63,6 @@ build CMakeFiles/TME6.dir/src/rsleep.cpp.o: CXX_COMPILER__TME6_unscanned_Debug /
   OBJECT_DIR = CMakeFiles/TME6.dir
   OBJECT_FILE_DIR = CMakeFiles/TME6.dir/src
 
-build CMakeFiles/TME6.dir/src/forkexo2.cpp.o: CXX_COMPILER__TME6_unscanned_Debug /home/weida/CLionProjects/TME6/src/forkexo2.cpp || cmake_object_order_depends_target_TME6
-  DEP_FILE = CMakeFiles/TME6.dir/src/forkexo2.cpp.o.d
-  FLAGS = -g -fdiagnostics-color=always
-  INCLUDES = -I/home/weida/CLionProjects/TME6/src
-  OBJECT_DIR = CMakeFiles/TME6.dir
-  OBJECT_FILE_DIR = CMakeFiles/TME6.dir/src
-
 build CMakeFiles/TME6.dir/src/combat.cpp.o: CXX_COMPILER__TME6_unscanned_Debug /home/weida/CLionProjects/TME6/src/combat.cpp || cmake_object_order_depends_target_TME6
   DEP_FILE = CMakeFiles/TME6.dir/src/combat.cpp.o.d
   FLAGS = -g -fdiagnostics-color=always
@@ -92,7 +85,7 @@ build CMakeFiles/TME6.dir/src/wait.cpp.o: CXX_COMPILER__TME6_unscanned_Debug /ho
 #############################################
 # Link the executable TME6
 
-build TME6: CXX_EXECUTABLE_LINKER__TME6_Debug CMakeFiles/TME6.dir/src/fork_exo.cpp.o CMakeFiles/TME6.dir/src/rsleep.cpp.o CMakeFiles/TME6.dir/src/forkexo2.cpp.o CMakeFiles/TME6.dir/src/combat.cpp.o CMakeFiles/TME6.dir/src/wait.cpp.o
+build TME6: CXX_EXECUTABLE_LINKER__TME6_Debug CMakeFiles/TME6.dir/src/fork_exo.cpp.o CMakeFiles/TME6.dir/src/rsleep.cpp.o CMakeFiles/TME6.dir/src/combat.cpp.o CMakeFiles/TME6.dir/src/wait.cpp.o
   FLAGS = -g
   OBJECT_DIR = CMakeFiles/TME6.dir
   POST_BUILD = :

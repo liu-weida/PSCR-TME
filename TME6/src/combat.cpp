@@ -12,28 +12,32 @@ pid_t parent_pid, child_pid;
 bool isfils = true;
 bool running = true;
 
-void handle_sigint(int sig) {
+void traiter_signal(int sig) {
     if (isfils) {
         vies_parent--;
+        std::cout << "fils coup paré" << std::endl;
         std::cout << "nb. de vies de parent: " << vies_parent << std::endl;
         if (vies_parent == 0) {
             kill(parent_pid, SIGTERM);
-            std::cout << "~~~parent died~~~" << std::endl;
+            std::cout << "~~~pere decede~~~" << std::endl;
+            std::cout << "~~~fils gagne~~~" << std::endl;
             running = false;
         }
     } else {
         vies_fils--;
+        std::cout << "parent coup paré" << std::endl;
         std::cout << "nb. de vies de fils: " << vies_fils << std::endl;
         if (vies_fils == 0) {
             kill(child_pid, SIGTERM);
-            std::cout << "~~~fils died~~~" << std::endl;
+            std::cout << "~~~fils decede~~~" << std::endl;
+            std::cout << "~~~pere gagne~~~" << std::endl;
             running = false;
         }
     }
 }
 
 void attaque(pid_t ennemis) {
-    if (kill(ennemis, SIGINT) == -1) {
+    if (kill(ennemis, SIGINT) == -1) {   // -1 defaut d'envoi, ennemi mort
         exit(0);
     }
     randsleep();
@@ -42,24 +46,30 @@ void attaque(pid_t ennemis) {
 void defense() {
 
     sigset_t set;
-    sigemptyset(&set);
+    sigemptyset(&set);  //assuer set est vide
     sigaddset(&set, SIGINT);
-    sigprocmask(SIG_BLOCK, &set, NULL);
+
+    sigprocmask(SIG_BLOCK, &set, NULL);  //signal -> pendingb
 
     randsleep();
 
-    if (isfils){
-    sigpending(&set);
-    if (sigismember(&set, SIGINT)) {
-        std::cout << "fils coup paré" << std::endl;
-    }
-    } else{
+    sigpending(&set); //pending -> set
 
-        if (sigismember(&set, SIGINT)) {
-            std::cout << "parent coup paré" << std::endl;
+    if (sigismember(&set, SIGINT)) {  // i y a pending SIGINT dans set -> defendu
+
+        int sig;
+        sigwait(&set, &sig);
+
+        if (isfils){
+
+        std::cout << "fils s'est defendu" << std::endl;
+
+        } else{
+
+        std::cout << "parent s'est defendu" << std::endl;
         }
-        
     }
+
     sigprocmask(SIG_UNBLOCK, &set, NULL);
 }
 
@@ -73,19 +83,22 @@ void combat(pid_t ennemis) {
 int main() {
     srand(time(0));
     parent_pid = getpid();
+
+    std::cout << "~~~~~~~~~~la bataille a commence~~~~~~~~~~" << std::endl;
+
     pid_t pid = fork();
     child_pid = pid;
 
-    signal(SIGINT, handle_sigint);
+    signal(SIGINT, traiter_signal);  //recu SIGINT -> taiter signal
 
-    if (pid == 0) {      // fils
+    if (pid == 0) { // fils
         isfils = true;
         srand(time(0) + getpid());
-        combat(getppid());
-    } else {             // parent
+        combat(getppid());  // pere -> ennemis
+    } else { // parent
         isfils = false;
         srand(time(0) + getpid());
-        combat(pid);
+        combat(pid);  // fils -> ennemis
         wait(NULL);
     }
 
@@ -104,6 +117,7 @@ int main() {
 //
 //    return 0;
 //}
+
 // Q6
 // Les batailles sont équitables en raison de la présence de nombres aléatoires,
 // et le comportement des deux parties est imprévisible,
