@@ -10,7 +10,7 @@ int main() {
     using namespace std;
     using namespace std::chrono;
 
-    ifstream input("/home/weida/eclipse-workspace/TME2/WarAndPeace.txt");
+    ifstream input("/home/weida/CLionProjects/TME3/WarAndPeace.txt");
 
     auto start = steady_clock::now();
     cout << "Parsing War and Peace" << endl;

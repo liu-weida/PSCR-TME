@@ -70,7 +70,9 @@ public:
                 : vit(vit), vend(vend), lit(vit->begin()) {
             while (vit != vend && lit == vit->end()) {
                 ++vit;
-                lit = vit->begin();
+                if (vit != vend) {
+                    lit = vit->begin();
+                }
             }
         }
 
@@ -78,8 +80,9 @@ public:
             ++lit;
             while (vit != vend && lit == vit->end()) {
                 ++vit;
-                lit = vit->begin();
-                
+                if (vit != vend) {
+                    lit = vit->begin();
+                }
             }
             return *this;
         }

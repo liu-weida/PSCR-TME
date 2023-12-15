@@ -7,7 +7,7 @@
 int main() {
     using namespace std;
 
-    ifstream input("/home/weida/eclipse-workspace/TME2/WarAndPeace.txt");
+    ifstream input("/home/weida/CLionProjects/TME3/WarAndPeace.txt");
 
     cout << "Parsing War and Peace" << endl;
 
@@ -22,6 +22,7 @@ int main() {
     input.close();
 
     unordered_map<int, forward_list<string>> frequencyMap;
+
     for (const auto& kv : wordCounts) {
         frequencyMap[kv.second].push_front(kv.first);
     }
