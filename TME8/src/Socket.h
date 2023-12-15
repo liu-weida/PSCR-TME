@@ -16,7 +16,7 @@ public :
 
 	// tente de se connecter à l'hôte fourni
 	void connect(const std::string & host, int port);
-	void connect(in_addr ipv4, int port);
+	void connect(in_addr addr, int port);
 
 	bool isOpen() const {return fd != -1;}
 	int getFD() { return fd ;}
