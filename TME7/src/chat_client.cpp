@@ -26,10 +26,6 @@ void end(int sig) {
 
 void send_message(myshm* shm) {
     message mes;
-    //int t = 0;
-    //cout<<"entrer type de message"<<endl;
-    //cin >> t;
-    //if (t==2) {
     mes.type = 2;
     string input;
 
@@ -43,7 +39,7 @@ void send_message(myshm* shm) {
         sem_post(&(shm->sem));
     }
 }
-//}
+
 
 void receive_message(myshm* shm) {
     signal(SIGINT, end);

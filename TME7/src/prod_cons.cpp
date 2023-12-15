@@ -36,6 +36,7 @@ void consommateur(Stack<char>* stack, bool active) {
 }
 
 int main() {
+
     int n, m, x;
     cout << "nb de N: ";
     cin >> n;
@@ -72,7 +73,7 @@ int main() {
         exit(1);
     }
 
-    Stack<char>* s = new (sp) Stack<char>();
+    new (sp) Stack<char>();
 
     signal(SIGINT, signalHandler); // Ctrl-C
 
@@ -120,3 +121,5 @@ int main() {
 
     return 0;
 }
+
+
