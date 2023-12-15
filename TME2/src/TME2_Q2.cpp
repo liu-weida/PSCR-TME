@@ -9,7 +9,7 @@ int main() {
     using namespace std;
     using namespace std::chrono;
 
-    ifstream input("/home/weida/eclipse-workspace/TME2/WarAndPeace.txt");
+    ifstream input("/home/weida/CLionProjects/TME2/WarAndPeace.txt");
 
     auto start = steady_clock::now();
     cout << "Parsing War and Peace" << endl;
@@ -27,7 +27,8 @@ int main() {
         transform(word.begin(), word.end(), word.begin(), ::tolower);
 
         // word est maintenant "tout propre"
-        if (find(uniqueWords.begin(), uniqueWords.end(), word) == uniqueWords.end()) {
+
+        if (find(uniqueWords.begin(), uniqueWords.end(), word) == uniqueWords.end()) { // pas dans uniqueWords
             uniqueWords.push_back(word);
         }
 
